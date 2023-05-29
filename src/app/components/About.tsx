@@ -8,7 +8,7 @@ const About = () => {
             </h1>
             <div className="w-3/5 flex flex-col gap-4 xl:w-1/2">
             <p>
-            I'm a 26-year-old man stationed in Oslo, Norway, working as a fullstack developer. With a strong foundation in software development, I bring expertise in various domain technologies and a passion for taking initiative. While my current role is in the finance industry, my skills and interests extend far beyond that domain.
+            I am a 26-year-old man stationed in Oslo, Norway, working as a fullstack developer. With a strong foundation in software development, I bring expertise in various domain technologies and a passion for taking initiative. While my current role is in the finance industry, my skills and interests extend far beyond that domain.
             </p>
             <p>
             One aspect that sets me apart is my wide-ranging knowledge and involvement in business discussions. I actively contribute to strategic conversations, leveraging my understanding of technology and its impact on business outcomes. Additionally, I feel confident and comfortable when presenting ideas and solutions to stakeholders, utilizing my communication skills to articulate complex concepts effectively.

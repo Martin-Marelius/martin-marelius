@@ -1,17 +1,13 @@
 "use client";
 
-import Image from 'next/image'
-import React, { ReactNode, useState, useRef, useEffect } from 'react';
-import { ReactTerminal } from "react-terminal";
+import React from 'react';
 import Portofolio from './components/Portofolio';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import About from './components/About';
 import WorkExperience from './components/WorkExperience';
 import Skills from './components/Skills';
-import { motion } from 'framer-motion';
 import Introduction from './components/Introduction';
-import Link from 'next/link';
 import Contact from './components/Contact';
 
 export default function Home() {

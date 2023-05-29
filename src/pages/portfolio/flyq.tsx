@@ -1,6 +1,5 @@
 "useclient";
 
-import Project from '@/app/components/project';
 import '../../app/globals.css'
 
 interface ProjectProps {
@@ -17,6 +16,6 @@ export default function Flyq() {
     }
 
     return (
-        <Project />
+        <div>null</div>
     );
 }

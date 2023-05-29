@@ -101,28 +101,31 @@ const projects: ProjectInfo[] = [
         >
           <div className="flex flex-row justify-center items-center pv-24 pb-24 gap-14">
         <Card
+          key={0}
           title="Flyq.no"
           image="flyq.jpg"
           href="flyq"
           display={SetDisplay}
           about="Website which shows live busyness and arrival times at all Norwegian airports."
-          icons={[<IoCloudOutline/>, <IoEarth/>]}
+          icons={[<IoCloudOutline key={10}/>, <IoEarth key={11}/>]}
         />
         <Card
+          key={1}
           title="StudiePartner"
           image="studiepartner.jpg"
           href="studiepartner"
           display={SetDisplay}
           about="An app which allows for planning and collaboration on study plans."
-          icons={[<IoPhonePortraitOutline/>]}
+          icons={[<IoPhonePortraitOutline key={12}/>]}
         />
         <Card
+          key={2}
           title="Hero Miner"
           image="hero-miner.jpg"
           href="herominer"
           display={SetDisplay}
           about="Mobile game where you mine resources and upgrade your vehicle."
-          icons={[<IoGameControllerOutline/>, <IoPhonePortraitOutline/>]}
+          icons={[<IoGameControllerOutline key={13}/>, <IoPhonePortraitOutline key={14}/>]}
         />
         </div>
         </motion.div>
@@ -158,16 +161,16 @@ const projects: ProjectInfo[] = [
                   {information.finished ? "Completed" : "In progress"}
                 </h2>
                 </div>
-                {information.about.map((text, index) => (
-                  <p key={index} className='pt-2 w-2/3'>
+                {information.about.map((text, key) => (
+                  <p key={key} className='pt-2 w-2/3'>
                     {text} 
                   </p>
                   
                 ))}
                 <a hidden={information.link != undefined ? false : true} href="https://flyq.no" className='text-sky-500'>flyq.no</a>
                 <ul className="mt-2">
-                  {information.skills.map((skill, index) => (
-                    <li key={index} className="inline-block bg-gray-200 text-gray-700 rounded-full py-1 px-2 text-sm mr-2 mt-2 transition-all hover:scale-105">
+                  {information.skills.map((skill, key) => (
+                    <li key={key} className="inline-block bg-gray-200 text-gray-700 rounded-full py-1 px-2 text-sm mr-2 mt-2 transition-all hover:scale-105">
                       {skill} 
                     </li>
                   ))}
