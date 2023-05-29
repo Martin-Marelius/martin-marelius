@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import React, { ReactNode, useState, useRef, useEffect } from 'react';
-import TerminalWindow from './components/TerminalWindow';
 import { ReactTerminal } from "react-terminal";
 import Portofolio from './components/Portofolio';
 import Header from './components/Header';
