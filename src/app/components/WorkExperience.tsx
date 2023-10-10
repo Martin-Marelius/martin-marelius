@@ -19,7 +19,7 @@ const WorkExperience = () => {
         {
           title: 'Software Engineer',
           dateFrom: 'Sep. 2022',
-          dateTo: 'Present - 10 months',
+          dateTo: 'Present - 13 months',
           company: 'Riverty Group AS',
           location: 'Oslo, Norway',
           logosrc: 'riverty.jpg',
@@ -43,7 +43,7 @@ const WorkExperience = () => {
           company: 'Arges AS',
           location: 'Alta, Norway',
           logosrc: 'arges.jpg',
-          about: 'As a production coordinator in the petroleum industry, I oversee daily operations and coordinate the activities of production teams to ensure efficient and safe production. I also track and maintain production data, troubleshoot issues, and develop strategies to improve efficiency and reduce costs.',
+          about: 'As a production coordinator in the petroleum industry, I oversee daily operations and coordinate the activities of production teams to ensure efficient and safe production. I also track and maintain production data, troubleshoot issues, and develop strategies to improve efficiency and reduce costs. During my time here I developed and presented a coordination platform demo for the employees to coordinate machine startup and product quality in order to significantly reduce waste and defects.',
           skills: ['Production Lead', 'Team Coordination', 'Industry Safety', 'Data Analytics', 'Problem Solving'],
         },
         {
