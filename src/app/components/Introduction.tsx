@@ -17,7 +17,7 @@ const Introduction  = () => {
     const background = useTransform(
       x,
       [-100, 0, 100],
-      ["linear-gradient(90deg,#ffa0ae 0%,#aacaef 75%)", "linear-gradient(0deg,#ffa0ae 0%,#aacaef 75%)", "linear-gradient(-90deg,#ffa0ae 0%,#aacaef 75%)"]
+      ["linear-gradient(90deg,#011126 0%,#124C59 75%)", "linear-gradient(0deg,#011126 0%, #124C59 75%)", "linear-gradient(-90deg,#011126 0%, #124C59 75%)"]
     )
     const rotation = useTransform(
         y,
@@ -81,12 +81,12 @@ const Introduction  = () => {
                 </div>
             </motion.div>
        <div>
-         <h1 className="text-3xl font-bold text-slate-700">
+         <h1 className="text-3xl font-bold text-slate-400">
            Martin Marelius Johnsen
          </h1>
        </div>
        <div>
-         <p className="text-1xl text-slate-600">
+         <p className="text-1xl text-slate-500">
            Fullstack Developer
          </p>
        </div>

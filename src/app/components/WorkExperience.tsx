@@ -19,7 +19,7 @@ const WorkExperience = () => {
         {
           title: 'Software Engineer',
           dateFrom: 'Sep. 2022',
-          dateTo: 'Present - 13 months',
+          dateTo: 'Present',
           company: 'Riverty Group AS',
           location: 'Oslo, Norway',
           logosrc: 'riverty.jpg',
