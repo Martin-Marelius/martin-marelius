@@ -9,6 +9,7 @@ import WorkExperience from './components/WorkExperience';
 import Skills from './components/Skills';
 import Introduction from './components/Introduction';
 import Contact from './components/Contact';
+import Title from './components/Title';
 
 export default function Home() {
 
@@ -24,25 +25,26 @@ export default function Home() {
       behavior: "smooth",
     });
   };
-  
+
   return (
     <main className="flex flex-col">
-      <Header behaviour={handleScroll}/>
+      <div className='absolute z-50'>
+        <Header behaviour={handleScroll} />
+      </div>
 
       <section id='introduction'>
-        <Introduction />
+        <div className="w-full h-screen bg-black">
+          <Title />
+          <Introduction />
+        </div>
       </section>
-
-      <div className='xl:flex xl:flex-row xl:align-center flex-col justify-around'>
-        <section id='about'>
-          <About />
-        </section>
-
-        <Skills />
-      </div>
 
       <section id='portfolio'>
         <Portofolio />
+      </section>
+
+      <section id='about'>
+        <About />
       </section>
 
       <section id='experience'>
