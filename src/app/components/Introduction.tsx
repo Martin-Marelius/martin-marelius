@@ -32,7 +32,7 @@ const Introduction = () => {
 
   useEffect(() => {
     setHasMounted(true);
-  }, []);
+  }, [hasMounted]);
 
   useEffect(() => {
     const animate = async () => {
@@ -52,7 +52,7 @@ const Introduction = () => {
       }
     };
     animate();
-  }, [size, controls, speed]);
+  }, [size, controls, speed, animating]);
 
   return (
     <>
@@ -111,8 +111,8 @@ const BasicParticles = (props: any) => {
 
 // Sphere component that spins around and changes color
 const Sphere = (props: any) => {
-  if(! props.visible) return null;
   const sphereRef = useRef<any>();
+
   useFrame(() => {
     if (sphereRef.current) {
       sphereRef.current.rotation.x = sphereRef.current.rotation.y += 0.01;
@@ -127,11 +127,13 @@ const Sphere = (props: any) => {
 
   return (
     <mesh ref={sphereRef}>
-      <sphereGeometry args={[0.08, 32, 32]} />
-      <meshStandardMaterial color={color}
-        emissive={'white'}
-        emissiveIntensity={0.5}
-      />
+      {props.visible && <>
+        <sphereGeometry args={[0.08, 32, 32]} />
+        <meshStandardMaterial color={color}
+          emissive={'white'}
+          emissiveIntensity={0.5}
+        />
+      </>}
     </mesh>
   );
 };
