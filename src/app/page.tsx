@@ -39,12 +39,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section id='portfolio'>
-        <Portofolio />
-      </section>
-
       <section id='about'>
         <About />
+      </section>
+
+      <section id='portfolio'>
+        <Portofolio />
       </section>
 
       <section id='experience'>

@@ -3,7 +3,7 @@ import { IoCall, IoMailOutline, IoLogoLinkedin, IoLogoGithub, IoLogoInstagram, I
 
 const Footer = (props:any) => {
   return (
-    <footer className="bg-slate-800">
+    <footer className="bg-black">
       <div className="container mx-auto py-10 px-4">
         <div className="flex flex-wrap justify-center items-start">
           <div className="w-full md:w-2/3">

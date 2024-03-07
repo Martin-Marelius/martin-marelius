@@ -6,7 +6,7 @@ const About = () => {
             <h1 className="font-bold text-slate-700 text-2xl self-start">
                 About me
             </h1>
-            <div className="w-3/5 flex flex-col gap-4 xl:w-1/2">
+            <div className="md:w-3/5 flex flex-col gap-4 xl:w-1/2">
             <p>
             I am a 26-year-old man stationed in Oslo, Norway, working as a fullstack developer. With a strong foundation in software development, I bring expertise in various domain technologies and a passion for taking initiative. While my current role is in the finance industry, my skills and interests extend far beyond that domain.
             </p>

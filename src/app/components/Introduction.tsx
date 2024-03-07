@@ -8,6 +8,7 @@ import { useAnimation } from 'framer-motion';
 import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
 
 const Introduction = () => {
+
   // Variables
   const [speed, setSpeed] = useState(0.004);
   const [size, setSize] = useState(3);
@@ -39,10 +40,14 @@ const Introduction = () => {
       if (1 - (1.4 * speed) <= 0.4 && !animating) {
         setAnimating(true);
         await controls.start({
-          scale: [1, 0.01],
-          transition: { duration: 2, type: "spring", stiffness: 60, damping: 5 }
+          scale: [1, 1.2],
+          transition: { duration: 2, type: "linear", stiffness: 100, damping: 10 }
         });
-        setSpeed(0.01);
+        await controls.start({
+          scale: [1, 0.01],
+          transition: { duration: 1.5, type: "spring", stiffness: 80, damping: 10 }
+        });
+        setSpeed(0.005);
         setSize(3.5);
         setVisible(true);
         await controls.start({
