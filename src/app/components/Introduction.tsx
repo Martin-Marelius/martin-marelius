@@ -1,8 +1,9 @@
 "useclient"
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { EdgesGeometry, LineBasicMaterial, LineSegments } from "three";
 import { motion } from "framer-motion-3d"
 import { useAnimation } from 'framer-motion';
 import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
@@ -10,8 +11,8 @@ import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-thr
 const Introduction = () => {
 
   // Variables
-  const [speed, setSpeed] = useState(0.004);
-  const [size, setSize] = useState(3);
+  const [speed, setSpeed] = useState(0.001);
+  const [size, setSize] = useState(2);
   const [animating, setAnimating] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -19,17 +20,6 @@ const Introduction = () => {
   // Animation Controlelrs
   const sizeControls = useAnimation();
   const controls = useAnimation();
-
-  const onClick = async () => {
-    if (animating) return;
-
-    sizeControls.start({
-      scale: [1, 1.04, 0.96, 1],
-      transition: { duration: 0.6, type: "tween", stiffness: 100, damping: 1 }
-    });
-    setSpeed((speed) => (speed *= 1.2));
-    setSize((size) => (size *= 0.992));
-  };
 
   useEffect(() => {
     setHasMounted(true);
@@ -63,85 +53,102 @@ const Introduction = () => {
     <>
       <Canvas style={{
         opacity: hasMounted ? 1 : 0,
-        transition: 'opacity 2.5s ease-in'
+        transition: 'opacity 2.5s ease-in',
       }}>
-        <ambientLight intensity={2} />
-        <pointLight position={[10, 10, 10]} intensity={100} />
-        <motion.mesh animate={controls}>
-          <BasicParticles size={size - 1} rotationSpeed={0.0015} detail={5} reverse={true} />
-          <motion.mesh animate={sizeControls}>
-            <Sphere rotationSpeed={speed} visible={visible} size={size - 0.5} />
-            <BasicParticles size={Math.max(0.4 - (1 * speed), 0.05)} rotationSpeed={speed} detail={4} />
-          </motion.mesh>
-          <BasicParticles size={size + 1} rotationSpeed={0.0015 * (speed - 1)} detail={5} />
-        </motion.mesh>
+        <ambientLight intensity={1} />
+        <pointLight position={[10, 10, 10]} />
+
+        <Square
+          size={size}
+          rotationSpeed={speed}
+          color={"white"} />
         <EffectComposer>
-          <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.5} height={300} />
-          <Vignette eskil={false} offset={0.1} darkness={0.5} />
+          <Bloom luminanceThreshold={1} luminanceSmoothing={0.1} intensity={5} />
+          <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={2} height={480} />
+          <Noise opacity={0.1} />
+          <Vignette eskil={false} offset={0.1} darkness={1.1} />
         </EffectComposer>
+
       </Canvas>
-      <div className="absolute top-0 w-full h-full" onClick={() => onClick()} />
     </>
   );
 };
 
-const BasicParticles = (props: any) => {
-  const points = useRef<THREE.Points>(null);
+// Square component that spins around and changes color
+const Square = (props: any) => {
+  const mesh = useRef<THREE.Mesh>(null);
+  const sizeControls = useAnimation();
+  const size = 0.11;
+
+  const smallSquares = useMemo(() => {
+    const squares = [];
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < 5; j++) {
+        for (let k = 0; k < 5; k++) {
+          if (k > 0 && k < 4 && i > 0 && i < 4 && j > 0 && j < 4) continue;
+
+          let rand = Math.random() * 4;
+          let randX = ((i == 0 || i == 4) && (j > 0 && j < 4 && k > 0 && k < 4)) ? rand : 1;
+          let randY = ((j == 0 || j == 4) && (i > 0 && i < 4 && k > 0 && k < 4)) ? rand : 1;
+          let randZ = ((k == 0 || k == 4) && (j > 0 && j < 4 && i > 0 && i < 4)) ? rand : 1;
+
+          let color1 = new THREE.Color().setHSL((Math.random() * 50) + 200, 1, 0.6);
+          let color2 = new THREE.Color().setHSL((Math.random() * 50) + 180, 1, 0.6);
+
+          squares.push(
+            <motion.mesh
+              position={[0.13 * (i - 4), 0.13 * (j - 4), 0.13 * (k - 4)]}
+              key={`${i}-${j}-${k}`}
+              animate={{
+                scaleX: [1, randX, 1],
+                scaleY: [1, randY, 1],
+                scaleZ: [1, randZ, 1],
+                transition: { duration: (rand) + 2, type: "linear", stiffness: 10, damping: 1, repeat: Infinity, repeatType: "reverse" }
+              }}>
+
+              <motion.mesh
+                key={`${i}-${j}-${k}line`}
+                animate={{
+                  color: [`#${color1.getHexString()}`, `#${color2.getHexString()}`],
+                  transition: { duration: 2, type: "linear", stiffness: 10, damping: 1, repeat: Infinity, repeatType: "reverse" }
+                }}>
+                <mesh>
+                  <boxGeometry args={[size, size, size]} />
+                  <meshBasicMaterial attach="material" color={'black'} />
+                </mesh>
+                <lineSegments>
+                  <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(size, size, size)]} />
+
+                  <lineBasicMaterial attach="material" color={'red'} />
+
+                </lineSegments>
+              </motion.mesh>
+            </motion.mesh>
+          );
+        }
+      }
+    }
+    return squares;
+  }, []);
 
   useFrame(() => {
-    if (!points.current) {
+    if (!mesh.current) {
       return;
     }
 
-    if (props.reverse) {
-      points.current.rotation.x = points.current.rotation.y -= props.rotationSpeed;
-    }
-    else {
-      points.current.rotation.x = points.current.rotation.y += props.rotationSpeed;
-    }
-
-    points.current.position.y = Math.sin(window.performance.now() / 1000) / 2;
+    mesh.current.rotation.x = mesh.current.rotation.y += props.rotationSpeed;
   });
 
   return (
-    <points ref={points}>
-      <icosahedronGeometry args={[props.size, props.detail]} />
-      <pointsMaterial
-        color={'cyan'}
-        size={0.012}
-      />
-    </points>
-  );
-};
+    <mesh ref={mesh}>
 
-// Sphere component that spins around and changes color
-const Sphere = (props: any) => {
-  const sphereRef = useRef<any>();
 
-  useFrame(() => {
-    if (sphereRef.current) {
-      sphereRef.current.rotation.x = sphereRef.current.rotation.y += 0.01;
-      sphereRef.current.position.y = Math.sin(window.performance.now() / 1000) / 2;
-    }
-  });
-
-  // Calculate color based on props.size
-  const color = new THREE.Color();
-  const hue = THREE.MathUtils.lerp(0.6, 0.5, props.size); // Calculate hue
-  color.setHSL(hue, 1, 0.5); // Set color based on hue
-
-  return (
-    <mesh ref={sphereRef}>
-      {props.visible && <>
-        <sphereGeometry args={[0.08, 32, 32]} />
-        <meshStandardMaterial color={color}
-          emissive={'white'}
-          emissiveIntensity={0.5}
-        />
-      </>}
+      {smallSquares}
     </mesh>
   );
 };
+
+
 
 
 export default Introduction;
