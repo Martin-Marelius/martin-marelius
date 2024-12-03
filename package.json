@@ -12,6 +12,8 @@
     "@react-three/drei": "^9.101.0",
     "@react-three/fiber": "^8.15.19",
     "@react-three/postprocessing": "^2.16.2",
+    "@tsparticles/engine": "^3.7.1",
+    "@tsparticles/react": "^3.0.0",
     "@types/node": "20.2.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -20,6 +22,7 @@
     "framer-motion": "^10.12.16",
     "framer-motion-3d": "^11.0.8",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.464.0",
     "next": "13.4.3",
     "postprocessing": "^6.35.1",
     "react": "18.2.0",
@@ -28,6 +31,7 @@
     "react-spring": "^9.7.3",
     "three": "^0.162.0",
     "three-stdlib": "^2.29.5",
+    "tsparticles": "^3.7.1",
     "typescript": "5.0.4"
   },
   "devDependencies": {
