@@ -1,147 +1,64 @@
-"useclient"
+import Image from 'next/image'
+import Link from 'next/link'
+import { ParticleBackground } from './ParticleBackground'
 
-import React, { useRef, useState, useEffect } from "react";
-import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
-import * as THREE from "three";
-import { motion } from "framer-motion-3d"
-import { useAnimation } from 'framer-motion';
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
-
-const Introduction = () => {
-
-  // Variables
-  const [speed, setSpeed] = useState(0.004);
-  const [size, setSize] = useState(3);
-  const [animating, setAnimating] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  // Animation Controlelrs
-  const sizeControls = useAnimation();
-  const controls = useAnimation();
-
-  const onClick = async () => {
-    if (animating) return;
-
-    sizeControls.start({
-      scale: [1, 1.04, 0.96, 1],
-      transition: { duration: 0.6, type: "tween", stiffness: 100, damping: 1 }
-    });
-    setSpeed((speed) => (speed *= 1.2));
-    setSize((size) => (size *= 0.992));
-  };
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, [hasMounted]);
-
-  useEffect(() => {
-    const animate = async () => {
-      if (1 - (1.4 * speed) <= 0.4 && !animating) {
-        setAnimating(true);
-        await controls.start({
-          scale: [1, 1.2],
-          transition: { duration: 2, type: "linear", stiffness: 100, damping: 10 }
-        });
-        await controls.start({
-          scale: [1, 0.01],
-          transition: { duration: 1.5, type: "spring", stiffness: 80, damping: 10 }
-        });
-        setSpeed(0.005);
-        setSize(3.5);
-        setVisible(true);
-        await controls.start({
-          scale: [0.01, 1.3],
-          transition: { duration: 0.2, type: "spring", stiffness: 100, damping: 10 }
-        });
-      }
-    };
-    animate();
-  }, [size, controls, speed, animating]);
-
+export default function Introduction(props:any) {
   return (
-    <>
-      <Canvas style={{
-        opacity: hasMounted ? 1 : 0,
-        transition: 'opacity 2.5s ease-in'
-      }}>
-        <ambientLight intensity={2} />
-        <pointLight position={[10, 10, 10]} intensity={100} />
-        <motion.mesh animate={controls}>
-          <BasicParticles size={size - 1} rotationSpeed={0.0015} detail={5} reverse={true} />
-          <motion.mesh animate={sizeControls}>
-            <Sphere rotationSpeed={speed} visible={visible} size={size - 0.5} />
-            <BasicParticles size={Math.max(0.4 - (1 * speed), 0.05)} rotationSpeed={speed} detail={4} />
-          </motion.mesh>
-          <BasicParticles size={size + 1} rotationSpeed={0.0015 * (speed - 1)} detail={5} />
-        </motion.mesh>
-        <EffectComposer>
-          <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.5} height={300} />
-          <Vignette eskil={false} offset={0.1} darkness={0.5} />
-        </EffectComposer>
-      </Canvas>
-      <div className="absolute top-0 w-full h-full" onClick={() => onClick()} />
-    </>
-  );
-};
+    <main className="relative min-h-screen">
+      <ParticleBackground />
+      <div className="absolute inset-0 z-10">
+        <div className="container mx-auto px-4 py-16">
+          <section className="mb-16">
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <div className="md:w-1/2 mb-8 md:mb-0">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                  Martin Marelius Johnsen
+                </h1>
+                <p className="text-xl md:text-2xl mb-6 text-gray-300">
+                  Backend Engineer
+                </p>
+                <Link onClick={(e) => props.behaviour(e)} href="#contact" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                  Contact Information
+                </Link>
+              </div>
+              <div className="md:w-1/2 flex justify-center">
+                <div className="relative w-64 h-64 md:w-80 md:h-80">
+                  <Image
+                    src="/headshot.jpg"
+                    alt="Martin Marelius Johnsen"
+                    quality={100}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-full border-4 border-blue-400 shadow-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-const BasicParticles = (props: any) => {
-  const points = useRef<THREE.Points>(null);
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Skills</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {['.NET', 'Java', 'React', 'Typescript', 'Finance', 'API', 'Cloud', 'Databases'].map((skill) => (
+                <div key={skill} className="bg-gray-800 rounded-lg p-4 text-center hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </section>
 
-  useFrame(() => {
-    if (!points.current) {
-      return;
-    }
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-8">Let's Connect</h2>
+            <p className="mb-8 text-gray-300">
+              I'm always open to new opportunities and collaborations.
+            </p>
+            <Link href="https://www.linkedin.com/in/martin-marelius-johnsen-3975731a6/" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+              LinkedIn
+            </Link>
+          </div>
+        </div>
+      </div>
+    </main>
+  )
+}
 
-    if (props.reverse) {
-      points.current.rotation.x = points.current.rotation.y -= props.rotationSpeed;
-    }
-    else {
-      points.current.rotation.x = points.current.rotation.y += props.rotationSpeed;
-    }
-
-    points.current.position.y = Math.sin(window.performance.now() / 1000) / 2;
-  });
-
-  return (
-    <points ref={points}>
-      <icosahedronGeometry args={[props.size, props.detail]} />
-      <pointsMaterial
-        color={'cyan'}
-        size={0.012}
-      />
-    </points>
-  );
-};
-
-// Sphere component that spins around and changes color
-const Sphere = (props: any) => {
-  const sphereRef = useRef<any>();
-
-  useFrame(() => {
-    if (sphereRef.current) {
-      sphereRef.current.rotation.x = sphereRef.current.rotation.y += 0.01;
-      sphereRef.current.position.y = Math.sin(window.performance.now() / 1000) / 2;
-    }
-  });
-
-  // Calculate color based on props.size
-  const color = new THREE.Color();
-  const hue = THREE.MathUtils.lerp(0.6, 0.5, props.size); // Calculate hue
-  color.setHSL(hue, 1, 0.5); // Set color based on hue
-
-  return (
-    <mesh ref={sphereRef}>
-      {props.visible && <>
-        <sphereGeometry args={[0.08, 32, 32]} />
-        <meshStandardMaterial color={color}
-          emissive={'white'}
-          emissiveIntensity={0.5}
-        />
-      </>}
-    </mesh>
-  );
-};
-
-
-export default Introduction;

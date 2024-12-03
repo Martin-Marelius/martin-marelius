@@ -1,10 +1,10 @@
 "use client";
 
 import React from 'react';
-import Portofolio from './components/Portofolio';
+import GitHubProjectsGrid from './components/Projects2'
 import Header from './components/Header';
-import Footer from './components/Footer';
-import About from './components/About';
+import Footer from './components/Footer2';
+import About2 from './components/About2';
 import WorkExperience from './components/WorkExperience';
 import Skills from './components/Skills';
 import Introduction from './components/Introduction';
@@ -28,31 +28,22 @@ export default function Home() {
 
   return (
     <main className="flex flex-col">
-      <div className='absolute z-50'>
-        <Header behaviour={handleScroll} />
-      </div>
+      
 
-      <section id='introduction'>
-        <div className="w-full h-screen bg-black">
-          <Title />
-          <Introduction />
-        </div>
+      <section id='home'>
+        <Introduction behaviour={handleScroll} />
       </section>
 
       <section id='about'>
-        <About />
+        <About2 behaviour={handleScroll} />
       </section>
 
-      <section id='portfolio'>
-        <Portofolio />
+      <section id='projects'>
+        <GitHubProjectsGrid />
       </section>
 
       <section id='experience'>
         <WorkExperience />
-      </section>
-
-      <section id='contact'>
-        <Contact />
       </section>
 
       <section id='contact'>
