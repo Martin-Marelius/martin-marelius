@@ -1,11 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ParticleBackground } from './ParticleBackground'
 
 export default function Introduction(props:any) {
   return (
     <main className="relative min-h-screen">
-      <ParticleBackground />
       <div className="absolute inset-0 z-10">
         <div className="container mx-auto px-4 py-16">
           <section className="mb-16">
