@@ -146,6 +146,7 @@ export default function GitHubProjectsGrid() {
                         width={300}
                         height={300}
                         fill={false}
+                        priority={true}
                         quality={100}
                         className="rounded-lg"
                       />

@@ -1,10 +1,14 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Introduction(props:any) {
   return (
     <main className="relative min-h-screen">
-      <div className="absolute inset-0 z-10">
+      <AnimatePresence>
+      <motion.div initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 1 } }}
+                  className="absolute inset-0 z-10">
         <div className="container mx-auto px-4 py-16">
           <section className="mb-16">
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -24,6 +28,7 @@ export default function Introduction(props:any) {
                   <Image
                     src="/headshot.jpg"
                     alt="Martin Marelius Johnsen"
+                    priority={true}
                     quality={100}
                     layout="fill"
                     objectFit="cover"
@@ -37,12 +42,19 @@ export default function Introduction(props:any) {
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Skills</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['.NET', 'Java', 'React', 'Typescript', 'Finance', 'API', 'Cloud', 'Databases'].map((skill) => (
-                <div key={skill} className="bg-gray-800 rounded-lg p-4 text-center hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
-                  {skill}
-                </div>
-              ))}
+            {['.NET', 'Java', 'React', 'Typescript', 'Finance', 'API', 'Cloud', 'Databases'].map((skill, index) => (
+            <motion.div
+              key={skill}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.random() * 2, duration: 0.3 }}
+              className="bg-gray-800 rounded-lg p-4 text-center hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              {skill}
+            </motion.div>
+          ))}
             </div>
+          
           </section>
 
           <div className="text-center">
@@ -55,7 +67,8 @@ export default function Introduction(props:any) {
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
+      </AnimatePresence>
     </main>
   )
 }
