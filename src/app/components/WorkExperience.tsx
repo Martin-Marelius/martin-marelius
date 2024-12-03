@@ -91,7 +91,7 @@ export default function WorkExperience() {
       <h2 className="text-3xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
         My Experience
       </h2>
-      <div className="space-y-8">
+      <div className="space-y-8 m-4">
         {workExperiences.map((experience, index) => (
           <motion.div
             key={index}
@@ -107,8 +107,9 @@ export default function WorkExperience() {
                       <Image
                         src={`/${experience.logosrc}`}
                         alt={`${experience.company} logo`}
-                        layout="fill"
-                        objectFit="cover"
+                        quality={100}
+                        width={64}
+                        height={64}
                         className="rounded-full"
                       />
                     </div>

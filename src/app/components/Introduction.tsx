@@ -4,11 +4,10 @@ import Link from 'next/link'
 
 export default function Introduction(props:any) {
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen ">
       <AnimatePresence>
       <motion.div initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { duration: 1 } }}
-                  className="absolute inset-0 z-10">
+                  animate={{ opacity: 1, transition: { duration: 1 } }}>
         <div className="container mx-auto px-4 py-16">
           <section className="mb-16">
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -16,8 +15,11 @@ export default function Introduction(props:any) {
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                   Martin Marelius Johnsen
                 </h1>
-                <p className="text-xl md:text-2xl mb-6 text-gray-300">
-                  Backend Engineer
+                <p className="text-xl md:text-2xl  text-gray-300">
+                  Backend Engineer at <span className="font-bold">Riverty</span>
+                </p>
+                <p className="text-l md:text-xl mb-6 text-gray-500">
+                  Oslo - <span className="font-bold">Norway</span>
                 </p>
                 <Link onClick={(e) => props.behaviour(e)} href="#contact" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-full">
                   Contact Information
